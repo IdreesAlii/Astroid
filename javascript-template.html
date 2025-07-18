@@ -14,9 +14,9 @@
     const FRICTION = 0.7; // friction coefficient of the space (0=no friction, 1=alot friction)
     const ROIDS_NUM = 3; // starting number of astroids
     const ROIDS_SIZE = 100; //starting size of the astroids
-    const ROIDS_SPD = 50; // speed of the astroids in pixel per second
-    const ROIDS_VERT = 10, // average number of vertices of each astroids
-          ROIDS_JAG = 0.4; // jaggedness of the astroids (0=perfect circle, 1=very jagged)
+    const ROIDS_SPD = 50; // max starting speed of the astroids in pixel per second
+    const ROIDS_VERT = 10; // average number of vertices of each astroids
+    const ROIDS_JAG = 0.4; // jaggedness of the astroids (0=perfect circle, 1=very jagged)
     const SHIP_SIZE = 30; // size of the ship
     const SHIP_THRUST = 5; // acceleration of the ship in pixel per sencond
     const TURN_SPEED = 360; // turn speed in degrees per second
@@ -47,18 +47,20 @@
     document.addEventListener("keyup", keyUp);
 
 
+
+    // set up game loops
+    setInterval(update, 1000 / FPS);
+
+
     function createAstroidBelt() {
       roids = [];
       var x, y;
-      for (var i = 0; i > ROIDS_NUM; i++) {
+      for (var i = 0; i < ROIDS_NUM; i++) {
         x = Math.floor(Math.random() * canv.width);
         y = Math.floor(Math.random() * canv.height);
         roids.push(newAstroid(x, y))
       }
     }
-
-    // set up game loops
-    setInterval(update, 1000 / FPS);
 
     function keyDown(/** @type {KeyboardEvent} */ ev) {
     switch(ev.keyCode) {
