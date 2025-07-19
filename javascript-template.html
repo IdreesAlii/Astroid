@@ -147,7 +147,7 @@
                 ship.thrust.y -= SHIP_THRUST * Math.sin(ship.a) / FPS;
 
                 // draw the thruster
-                if(!exploding) {
+                if(!exploding && blinkOn) {
 
                
                   ctx.fillStyle = "red";
@@ -201,6 +201,8 @@
 
             // handle blinking
             if (ship.blinkNum > 0) {
+
+                // reduce blink time
               ship.blinkTime--;
 
               //reduce blink number
@@ -287,11 +289,13 @@
 
             // check for asteroid collisions
             if (!exploding) {
-             for (var i = 0;i < roids.length; i++){
-              if (distBetweenPoints(ship.x, ship.y, roids[i].x, roids[i].y) < ship.r + roids[i].r) {
-                explodeShip(); // explode the ship
-                }
-             }
+                if (ship.blinkNum == 0) {
+                 for (var i = 0;i < roids.length; i++){
+                  if (distBetweenPoints(ship.x, ship.y, roids[i].x, roids[i].y) < ship.r + roids[i].r) {
+                    explodeShip(); // explode the ship
+                    }
+                 }
+            }
 
             // rotate the ship
             ship.a += ship.rot;
